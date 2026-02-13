@@ -1,0 +1,7 @@
+transaction_id,customer_name,date,item,amount
+TXN-2026-001,Acme Corp,2026-01-15,Consulting Services,1500.00
+TXN-2026-002,Globex Inc,2026-01-20,Software License,3200.00
+TXN-2026-003,Initech Ltd,2026-02-01,Training Workshop,800.00
+TXN-2026-004,John Smith,2026-02-10,Website Development,5500.00
+TXN-2026-005,Tech Solutions s.r.o.,2026-02-28,Monthly Maintenance,1200.00
+TXN-2026-006,StartupXYZ,2026-03-05,Product Design Consultation,2500.00
