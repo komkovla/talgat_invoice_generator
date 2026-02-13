@@ -1,0 +1,52 @@
+name: Build and Release macOS App
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Homebrew dependencies
+        run: |
+          brew install pango gdk-pixbuf libffi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build .app bundle
+        run: pyinstaller invoice_generator.spec --noconfirm --clean
+
+      - name: Create .dmg
+        run: |
+          mkdir -p dist/dmg
+          cp -R "dist/Invoice Generator.app" dist/dmg/
+          ln -s /Applications dist/dmg/Applications
+          hdiutil create \
+            -volname "Invoice Generator" \
+            -srcfolder dist/dmg \
+            -ov \
+            -format UDZO \
+            "dist/InvoiceGenerator-${{ github.ref_name }}.dmg"
+
+      - name: Upload .dmg to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/InvoiceGenerator-*.dmg
+          generate_release_notes: true
