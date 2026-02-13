@@ -24,7 +24,7 @@ if ! command -v brew &>/dev/null; then
     exit 1
 fi
 
-for pkg in pango gdk-pixbuf libffi; do
+for pkg in pango gdk-pixbuf libffi cairo; do
     if ! brew list "$pkg" &>/dev/null; then
         echo "==> Installing $pkg via Homebrew..."
         brew install "$pkg"
