@@ -30,3 +30,8 @@ output_cz/
 # OS
 .DS_Store
 Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.spec.bak

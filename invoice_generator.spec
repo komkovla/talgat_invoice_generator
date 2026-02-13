@@ -15,6 +15,7 @@ ctk_datas, ctk_binaries, ctk_hiddenimports = collect_all("customtkinter")
 
 all_datas = weasyprint_datas + cffi_datas + ctk_datas + [
     ("templates", "templates"),
+    ("src", "src"),  # Include entire src package
 ]
 
 all_binaries = weasyprint_binaries + cffi_binaries + ctk_binaries
@@ -46,11 +47,11 @@ if homebrew_gdk_loaders.exists():
             all_datas.append((str(f), str(rel.parent)))
 
 a = Analysis(
-    ["src/gui.py"],
-    pathex=[],
+    ["gui_launcher.py"],
+    pathex=["."],
     binaries=all_binaries,
     datas=all_datas,
-    hiddenimports=all_hiddenimports,
+    hiddenimports=all_hiddenimports + ["src.main", "src.gui", "src.csv_parser", "src.renderer", "src.pdf_generator", "src.models"],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

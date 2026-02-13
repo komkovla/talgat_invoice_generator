@@ -7,7 +7,12 @@ from tkinter import filedialog
 
 import customtkinter as ctk
 
-from .main import generate_invoices, GenerationResult
+# Handle imports for both development and PyInstaller bundle
+try:
+    from .main import generate_invoices, GenerationResult
+except ImportError:
+    # Fallback for PyInstaller when package structure isn't preserved
+    from src.main import generate_invoices, GenerationResult
 
 
 def get_templates_dir() -> Path:
